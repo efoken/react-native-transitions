@@ -74,7 +74,7 @@ function getTranslateValue(
 export const Slide = forwardRef<any, SlideProps>(
   (
     {
-      appear = false,
+      appear = true,
       children,
       container: containerProp,
       direction = "down",

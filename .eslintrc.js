@@ -2,10 +2,14 @@
 module.exports = {
   extends: ["airbnb", "airbnb/hooks", "plugin:unicorn/recommended", "prettier"],
   rules: {
+    "import/no-extraneous-dependencies": "off",
     "import/prefer-default-export": "off",
     "no-nested-ternary": "off",
     "no-param-reassign": "off",
     "no-restricted-syntax": "off",
+    "react/function-component-definition": "off",
+    "react/jsx-props-no-spreading": "off",
+    "react/prop-types": "off",
     "react/react-in-jsx-scope": "off",
     "react/style-prop-object": "off",
     "unicorn/filename-case": "off",
@@ -21,6 +25,9 @@ module.exports = {
       extends: ["airbnb-typescript", "prettier"],
       parserOptions: {
         project: "./tsconfig.json",
+      },
+      rules: {
+        "import/no-extraneous-dependencies": "off",
       },
     },
   ],

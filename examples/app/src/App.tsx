@@ -37,10 +37,10 @@ export default function App() {
         <Fade in={checked}>
           <Animated.View style={styles.box} />
         </Fade>
-        <Zoom in={checked}>
+        <Zoom in={checked} onExited={() => console.log("onZoomExit")}>
           <Animated.View style={styles.box} />
         </Zoom>
-        <Slide in={checked}>
+        <Slide in={checked} onExited={() => console.log("onSlideExit")}>
           <Animated.View style={styles.box} />
         </Slide>
       </View>

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef } from "react";
 import type { TransitionState } from "react-transition-state";
 import { useTransition as useTransitionState } from "react-transition-state";
 import type {
@@ -22,8 +22,6 @@ export function useTransition<T>({
   timeout,
   unmountOnExit,
 }: UseTransitionProps<T>): UseTransitionReturn {
-  const [resolved, setResolved] = useState(false);
-
   const handleStateChange = (event: { current: TransitionState }) => {
     switch (event.current.status) {
       case "preEnter": {
@@ -31,7 +29,6 @@ export function useTransition<T>({
         break;
       }
       case "entered": {
-        setResolved(true);
         onEntered?.(nodeRef.current!);
         break;
       }
@@ -44,7 +41,6 @@ export function useTransition<T>({
         break;
       }
       case "exited": {
-        setResolved(true);
         onExited?.(nodeRef.current!);
         break;
       }
@@ -56,26 +52,32 @@ export function useTransition<T>({
     }
   };
 
-  const [{ isMounted: mounted, status: state }, toggle] = useTransitionState({
-    initialEntered: appear ? false : !resolved ? inProp : undefined,
-    mountOnEnter,
-    onStateChange: handleStateChange,
-    preEnter: true,
-    preExit: true,
-    timeout,
-    unmountOnExit,
-  });
+  const initialEntered = inProp ? !appear : false;
+
+  const [{ isMounted: mounted, isResolved: resolved, status: state }, toggle] =
+    useTransitionState({
+      initialEntered,
+      mountOnEnter,
+      onStateChange: handleStateChange,
+      preEnter: true,
+      preExit: true,
+      timeout,
+      unmountOnExit,
+    });
+
+  const prevIn = useRef<boolean>();
 
   useEffect(() => {
-    if (appear) {
-      toggle(true);
+    if (inProp !== prevIn.current) {
+      if (inProp) {
+        toggle(true);
+      } else {
+        toggle(false);
+      }
+      prevIn.current = inProp;
     }
-  }, [appear, toggle]);
-
-  useEffect(() => {
-    setResolved(true);
-    toggle(inProp);
-  }, [inProp, toggle]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [inProp]);
 
   return {
     animation: undefined as any,

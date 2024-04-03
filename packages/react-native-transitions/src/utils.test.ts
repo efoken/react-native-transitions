@@ -1,6 +1,6 @@
 import { parseTime, isNumber, isString } from "./utils";
 
-describe("isString", () => {
+describe("isString()", () => {
   it("should return expected values", () => {
     expect(isString(1)).toBe(false);
     expect(isString("1")).toBe(true);
@@ -8,13 +8,13 @@ describe("isString", () => {
   });
 });
 
-describe("isNumber", () => {
+describe("isNumber()", () => {
   it("should return expected values", () => {
     expect(isNumber(1)).toBe(true);
   });
 });
 
-describe("getDuration", () => {
+describe("getDuration()", () => {
   it("should return expected values", () => {
     expect(parseTime(1)).toBe(1);
     expect(parseTime(10)).toBe(10);

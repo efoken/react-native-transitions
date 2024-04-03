@@ -7,7 +7,7 @@ import { useTransition } from "./useTransition";
 export const Grow = forwardRef<any, GrowProps>(
   (
     {
-      appear = false,
+      appear = true,
       children,
       disableNativeDriver = false,
       easing,

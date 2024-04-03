@@ -18,7 +18,7 @@ const styles: Record<string, RNViewStyle> = {
 export const Zoom = forwardRef<any, ZoomProps>(
   (
     {
-      appear = false,
+      appear = true,
       children,
       disableNativeDriver,
       easing,

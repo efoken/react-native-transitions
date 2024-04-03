@@ -8,7 +8,7 @@ import { useTransition } from "./useTransition";
 export const Fade = forwardRef<any, FadeProps>(
   (
     {
-      appear = false,
+      appear = true,
       children,
       disableNativeDriver = false,
       easing,

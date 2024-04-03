@@ -18,7 +18,7 @@ const styles: Record<string, RNViewStyle> = {
 export const Fade = forwardRef<any, FadeProps>(
   (
     {
-      appear = false,
+      appear = true,
       children,
       disableNativeDriver,
       easing,

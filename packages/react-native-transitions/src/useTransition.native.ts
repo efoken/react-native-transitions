@@ -1,10 +1,5 @@
-import { useCallback, useEffect, useRef, useState } from "react";
-import {
-  Animated,
-  Easing,
-  LayoutRectangle,
-  useAnimatedValue,
-} from "react-native";
+import { useEffect, useRef, useState } from "react";
+import { Animated, Easing, useAnimatedValue } from "react-native";
 import type { TransitionStatus } from "react-transition-state";
 import type { TransitionEasing } from "./types";
 import type {

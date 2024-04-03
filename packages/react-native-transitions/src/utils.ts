@@ -84,7 +84,7 @@ export function parseTime(value: string | number) {
   return value;
 }
 
-export function getAutoHeightDuration(height: number) {
+export function getAutoHeightDuration(height = 0) {
   if (!height) {
     return 0;
   }

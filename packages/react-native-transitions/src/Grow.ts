@@ -1,10 +1,14 @@
 import { Children, cloneElement, forwardRef, useRef } from "react";
 import type { ViewStyle as RNViewStyle } from "react-native";
 import type { GrowProps } from "./Grow.types";
-import { GROW_TIMEOUT } from "./constants";
 import { mergeRefs } from "./mergeRefs";
 import { useTransition } from "./useTransition";
-import { createTransitions, getTransitionProps, isNumber } from "./utils";
+import {
+  createTransitions,
+  getAutoHeightDuration,
+  getTransitionProps,
+  isNumber,
+} from "./utils";
 
 function getScale(value: number) {
   return `scale(${value}, ${value ** 2})`;
@@ -24,7 +28,7 @@ const styles: Record<string, RNViewStyle> = {
 export const Grow = forwardRef<any, GrowProps>(
   (
     {
-      appear = false,
+      appear = true,
       children,
       disableNativeDriver,
       easing,
@@ -37,7 +41,7 @@ export const Grow = forwardRef<any, GrowProps>(
       onExited,
       onExiting,
       style,
-      timeout = GROW_TIMEOUT,
+      timeout = "auto",
       unmountOnExit = false,
       ...props
     },
@@ -45,9 +49,12 @@ export const Grow = forwardRef<any, GrowProps>(
   ) => {
     const nodeRef = useRef<HTMLElement>(null);
 
+    const getTimeout = (node: HTMLElement | null) =>
+      timeout === "auto" ? getAutoHeightDuration(node?.clientHeight) : timeout;
+
     const handleEnter = (node: HTMLElement) => {
       const { delay, duration, ...transitionProps } = getTransitionProps(
-        { easing, style, timeout },
+        { easing, style, timeout: getTimeout(node) },
         { mode: "enter" }
       );
 
@@ -67,7 +74,7 @@ export const Grow = forwardRef<any, GrowProps>(
 
     const handleExit = (node: HTMLElement) => {
       const { delay, duration, ...transitionProps } = getTransitionProps(
-        { easing, style, timeout },
+        { easing, style, timeout: getTimeout(node) },
         { mode: "exit" }
       );
 
@@ -103,7 +110,7 @@ export const Grow = forwardRef<any, GrowProps>(
       onExit: handleExit,
       onExited,
       onExiting,
-      timeout,
+      timeout: getTimeout(nodeRef.current),
       unmountOnExit,
     });
 
