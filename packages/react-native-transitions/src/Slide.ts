@@ -16,6 +16,7 @@ import {
   getOwnerWindow,
   getTransitionProps,
   isString,
+  objectFlat,
   runIfFn,
 } from "./utils";
 
@@ -198,14 +199,14 @@ export const Slide = forwardRef<any, SlideProps>(
     return mounted
       ? cloneElement(Children.only(children), {
           ref: mergeRefs([nodeRef, (children as any).ref, ref]),
-          style: [
+          style: objectFlat([
             {
               visibility: state === "exited" && !inProp ? "hidden" : undefined,
               willChange: "transition",
             },
             style,
             children.props.style,
-          ],
+          ]),
           ...props,
         })
       : undefined;

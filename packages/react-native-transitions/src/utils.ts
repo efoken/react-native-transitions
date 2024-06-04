@@ -25,7 +25,7 @@ export function debounce<T extends (...args: any[]) => any>(fn: T, wait = 166) {
   const debounced = (...args: Parameters<T>) => {
     clearTimeout(timeout);
     timeout = setTimeout(() => {
-      // @ts-ignore
+      // @ts-expect-error
       fn.apply(this, args);
     }, wait);
   };
@@ -35,6 +35,15 @@ export function debounce<T extends (...args: any[]) => any>(fn: T, wait = 166) {
   };
 
   return debounced as T & { clear: () => void };
+}
+
+export function objectFlat(
+  value: Record<string, any>[] = []
+): Record<string, any> {
+  return Object.assign(
+    {},
+    ...value.flat(Number.POSITIVE_INFINITY).filter(Boolean)
+  );
 }
 
 export function getOwnerWindow(node?: HTMLElement | null) {

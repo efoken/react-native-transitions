@@ -4,7 +4,7 @@ import type { ZoomProps } from "./Zoom.types";
 import { ZOOM_TIMEOUT } from "./constants";
 import { mergeRefs } from "./mergeRefs";
 import { useTransition } from "./useTransition";
-import { createTransitions, getTransitionProps } from "./utils";
+import { createTransitions, getTransitionProps, objectFlat } from "./utils";
 
 const styles: Record<string, RNViewStyle> = {
   entering: {
@@ -80,7 +80,7 @@ export const Zoom = forwardRef<any, ZoomProps>(
     return mounted
       ? cloneElement(Children.only(children), {
           ref: mergeRefs([nodeRef, (children as any).ref, ref]),
-          style: [
+          style: objectFlat([
             {
               transform: "scale(0)",
               visibility: state === "exited" && !inProp ? "hidden" : undefined,
@@ -89,7 +89,7 @@ export const Zoom = forwardRef<any, ZoomProps>(
             },
             style,
             children.props.style,
-          ],
+          ]),
           ...props,
         })
       : undefined;

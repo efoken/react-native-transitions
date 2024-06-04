@@ -8,6 +8,7 @@ import {
   getAutoHeightDuration,
   getTransitionProps,
   isNumber,
+  objectFlat,
 } from "./utils";
 
 function getScale(value: number) {
@@ -117,7 +118,7 @@ export const Grow = forwardRef<any, GrowProps>(
     return mounted
       ? cloneElement(Children.only(children), {
           ref: mergeRefs([nodeRef, (children as any).ref, ref]),
-          style: [
+          style: objectFlat([
             {
               opacity: 0,
               transform: getScale(0.75),
@@ -127,7 +128,7 @@ export const Grow = forwardRef<any, GrowProps>(
             },
             style,
             children.props.style,
-          ],
+          ]),
           ...props,
         })
       : undefined;

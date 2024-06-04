@@ -4,7 +4,7 @@ import type { FadeProps } from "./Fade.types";
 import { FADE_TIMEOUT } from "./constants";
 import { mergeRefs } from "./mergeRefs";
 import { useTransition } from "./useTransition";
-import { createTransitions, getTransitionProps } from "./utils";
+import { createTransitions, getTransitionProps, objectFlat } from "./utils";
 
 const styles: Record<string, RNViewStyle> = {
   entering: {
@@ -80,7 +80,7 @@ export const Fade = forwardRef<any, FadeProps>(
     return mounted
       ? cloneElement(Children.only(children), {
           ref: mergeRefs([nodeRef, (children as any).ref, ref]),
-          style: [
+          style: objectFlat([
             {
               opacity: 0,
               transform: "none",
@@ -90,7 +90,7 @@ export const Fade = forwardRef<any, FadeProps>(
             },
             style,
             children.props.style,
-          ],
+          ]),
           ...props,
         })
       : undefined;
