@@ -22,7 +22,11 @@ module.exports = {
   overrides: [
     {
       files: ["*.{ts,tsx}"],
-      extends: ["airbnb-typescript", "prettier"],
+      extends: [
+        "airbnb-typescript",
+        "plugin:@typescript-eslint/stylistic-type-checked",
+        "prettier",
+      ],
       parserOptions: {
         project: "./tsconfig.json",
       },

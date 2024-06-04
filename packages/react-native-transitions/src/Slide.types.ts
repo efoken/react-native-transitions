@@ -3,7 +3,7 @@ import type { TransitionProps } from "./types";
 
 export type SlideDirection = "left" | "right" | "up" | "down";
 
-export type SlideProps = TransitionProps & {
+export interface SlideProps extends TransitionProps {
   appear?: boolean;
   children: React.ReactElement<any, any>;
   container?:
@@ -12,4 +12,4 @@ export type SlideProps = TransitionProps & {
     | (() => HTMLElement | NativeMethods | undefined);
   direction?: SlideDirection;
   disableNativeDriver?: boolean;
-};
+}

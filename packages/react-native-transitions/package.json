@@ -1,6 +1,6 @@
 {
   "name": "react-native-transitions",
-  "version": "0.0.6",
+  "version": "0.0.9",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
@@ -9,7 +9,6 @@
     "dist",
     "src"
   ],
-  "sideEffects": false,
   "license": "MIT",
   "dependencies": {
     "merge-refs": "^1.2.2",
@@ -35,12 +34,12 @@
       "source": "./src/index.ts",
       "react-native": "./src/index.ts",
       "import": {
-        "types": "./dist/types/index.d.mts",
-        "default": "./dist/esm/index.mjs"
+        "types": "./dist/index.d.mts",
+        "default": "./dist/index.mjs"
       },
       "require": {
-        "types": "./dist/types/index.d.ts",
-        "default": "./dist/cjs/index.cjs"
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
       }
     },
     "./package.json": "./package.json"
