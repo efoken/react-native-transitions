@@ -1,7 +1,7 @@
 import { StatusBar } from "expo-status-bar";
 import { StrictMode, useState } from "react";
 import { Animated, StyleSheet, Text, View } from "react-native";
-import { Fade, Grow, Slide, Zoom } from "react-native-transitions";
+import { Collapse, Fade, Grow, Slide, Zoom } from "react-native-transitions";
 
 const styles = StyleSheet.create({
   container: {
@@ -32,6 +32,12 @@ export default function App() {
           Open up App.tsx to start working on your app!
         </Text>
         <View style={styles.boxGrid}>
+          <Collapse in={checked}>
+            <Animated.View style={styles.box} />
+          </Collapse>
+          <Collapse in={checked} collapsedSize={40}>
+            <Animated.View style={styles.box} />
+          </Collapse>
           <Grow in={checked}>
             <Animated.View style={styles.box} />
           </Grow>

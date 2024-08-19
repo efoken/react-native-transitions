@@ -2,13 +2,10 @@ import { useEffect, useRef, useState } from "react";
 import { Animated, Easing, useAnimatedValue } from "react-native";
 import type { TransitionStatus } from "react-transition-state";
 import type { TransitionEasing } from "./types";
-import type {
-  UseTransitionProps,
-  UseTransitionReturn,
-} from "./useTransition.types";
+import type { UseTransitionProps, UseTransitionReturn } from "./useTransition.types";
 import { isNumber, isString } from "./utils";
 
-function getEasing(easing: TransitionEasing | undefined) {
+export function getEasing(easing: TransitionEasing | undefined) {
   if (easing === "linear") {
     return Easing.linear;
   }
@@ -22,14 +19,9 @@ function getEasing(easing: TransitionEasing | undefined) {
     return Easing.out(Easing.ease);
   }
   if (easing?.startsWith("cubic-bezier(")) {
-    const args = (
-      easing.match(/cubic-bezier\((.*)\)/)?.[1]?.split(/,\s*/, 4) ?? []
-    ).map((arg) => Number.parseFloat(arg)) as [
-      x1: number,
-      y1: number,
-      x2: number,
-      y2: number
-    ];
+    const args = (/cubic-bezier\((.*)\)/.exec(easing)?.[1]?.split(/,\s*/, 4) ?? []).map((arg) =>
+      Number.parseFloat(arg)
+    ) as [x1: number, y1: number, x2: number, y2: number];
     return Easing.bezier(...args);
   }
   return Easing.ease;
@@ -52,15 +44,9 @@ export function useTransition<T>({
 }: UseTransitionProps<T>): UseTransitionReturn {
   const [state, setState] = useState<TransitionStatus>("unmounted");
 
-  const easing = isString(easingProp)
-    ? easingProp
-    : inProp
-    ? easingProp?.exit
-    : easingProp?.exit;
+  const easing = isString(easingProp) ? easingProp : inProp ? easingProp?.exit : easingProp?.exit;
 
-  const animatedValue = useAnimatedValue(
-    appear ? (inProp ? 0 : 1) : inProp ? 1 : 0
-  );
+  const animatedValue = useAnimatedValue(appear ? (inProp ? 0 : 1) : inProp ? 1 : 0);
   const animation = useRef<Animated.CompositeAnimation>();
 
   useEffect(() => {
@@ -100,11 +86,7 @@ export function useTransition<T>({
     animation.current?.stop();
     handleAnimationStart();
     animation.current = Animated.timing(animatedValue, {
-      duration: isNumber(timeout)
-        ? timeout
-        : inProp
-        ? timeout?.exit
-        : timeout?.enter,
+      duration: isNumber(timeout) ? timeout : inProp ? timeout?.exit : timeout?.enter,
       easing: getEasing(easing),
       toValue: inProp ? 1 : 0,
       useNativeDriver: !disableNativeDriver,

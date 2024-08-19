@@ -1,11 +1,4 @@
-import {
-  Children,
-  cloneElement,
-  forwardRef,
-  useCallback,
-  useEffect,
-  useRef,
-} from "react";
+import { Children, cloneElement, forwardRef, useCallback, useEffect, useRef } from "react";
 import type { SlideDirection, SlideProps } from "./Slide.types";
 import { SLIDE_TIMEOUT } from "./constants";
 import { mergeRefs } from "./mergeRefs";
@@ -20,18 +13,12 @@ import {
   runIfFn,
 } from "./utils";
 
-function getTranslateValue(
-  direction: SlideDirection,
-  node: HTMLElement,
-  container?: HTMLElement
-) {
+function getTranslateValue(direction: SlideDirection, node: HTMLElement, container?: HTMLElement) {
   const rect = node.getBoundingClientRect();
   const containerRect = container?.getBoundingClientRect();
   const containerWindow = getOwnerWindow(node);
 
-  const transform = containerWindow
-    .getComputedStyle(node)
-    .getPropertyValue("transform");
+  const transform = containerWindow.getComputedStyle(node).getPropertyValue("transform");
 
   let offsetX = 0;
   let offsetY = 0;
@@ -65,9 +52,7 @@ function getTranslateValue(
 
   // direction === 'down'
   if (containerRect) {
-    return `translateY(-${
-      rect.top - containerRect.top + rect.height - offsetY
-    }px)`;
+    return `translateY(-${rect.top - containerRect.top + rect.height - offsetY}px)`;
   }
   return `translateY(-${rect.top + rect.height - offsetY}px)`;
 }
@@ -107,10 +92,7 @@ export const Slide = forwardRef<any, SlideProps>(
     };
 
     const handleEntering = (node: HTMLElement) => {
-      const transitionProps = getTransitionProps(
-        { easing, style, timeout },
-        { mode: "enter" }
-      );
+      const transitionProps = getTransitionProps({ easing, style, timeout }, { mode: "enter" });
 
       node.style.transition = createTransitions("transform", transitionProps);
       node.style.transform = "none";
@@ -119,10 +101,7 @@ export const Slide = forwardRef<any, SlideProps>(
     };
 
     const handleExit = (node: HTMLElement) => {
-      const transitionProps = getTransitionProps(
-        { easing, style, timeout },
-        { mode: "exit" }
-      );
+      const transitionProps = getTransitionProps({ easing, style, timeout }, { mode: "exit" });
 
       node.style.transition = createTransitions("transform", transitionProps);
       node.style.transform = getTranslateValue(direction, node);

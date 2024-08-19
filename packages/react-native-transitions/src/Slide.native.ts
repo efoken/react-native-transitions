@@ -1,18 +1,5 @@
-import {
-  Children,
-  cloneElement,
-  forwardRef,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
-import type {
-  Animated,
-  LayoutRectangle,
-  NativeMethods,
-  ScaledSize,
-} from "react-native";
+import { Children, cloneElement, forwardRef, useEffect, useMemo, useRef, useState } from "react";
+import type { Animated, LayoutRectangle, NativeMethods, ScaledSize } from "react-native";
 import { useWindowDimensions } from "react-native";
 import type { SlideDirection, SlideProps } from "./Slide.types";
 import { SLIDE_TIMEOUT } from "./constants";
@@ -31,10 +18,7 @@ function getTranslateValue(
       {
         translateX: animation.interpolate({
           inputRange: [0, 1],
-          outputRange: [
-            containerWindow.width + node.offset.x - node.layout.x,
-            0,
-          ],
+          outputRange: [containerWindow.width + node.offset.x - node.layout.x, 0],
         }),
       },
     ];
@@ -45,10 +29,7 @@ function getTranslateValue(
       {
         translateX: animation.interpolate({
           inputRange: [0, 1],
-          outputRange: [
-            -(node.layout.x + node.layout.width - node.offset.x),
-            0,
-          ],
+          outputRange: [-(node.layout.x + node.layout.width - node.offset.x), 0],
         }),
       },
     ];
@@ -59,10 +40,7 @@ function getTranslateValue(
       {
         translateY: animation.interpolate({
           inputRange: [0, 1],
-          outputRange: [
-            containerWindow.height + node.offset.y - node.layout.y,
-            0,
-          ],
+          outputRange: [containerWindow.height + node.offset.y - node.layout.y, 0],
         }),
       },
     ];

@@ -3,19 +3,19 @@
   "private": true,
   "main": "src/index.ts",
   "dependencies": {
-    "expo": "~51.0.9",
+    "expo": "~51.0.28",
     "expo-status-bar": "~1.12.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "react-native": "0.74.1",
+    "react-native": "0.74.5",
     "react-native-transitions": "workspace:*",
     "react-native-web": "~0.19.12"
   },
   "devDependencies": {
-    "@babel/core": "^7.24.6",
-    "@expo/metro-runtime": "~3.2.1",
+    "@babel/core": "^7.25.2",
+    "@expo/metro-runtime": "~3.2.3",
     "@types/react": "~18.2.79",
-    "typescript": "^5.4.5"
+    "typescript": "^5.5.4"
   },
   "scripts": {
     "android": "expo start --android",

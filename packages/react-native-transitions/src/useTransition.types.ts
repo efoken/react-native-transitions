@@ -1,8 +1,5 @@
 import type { Animated } from "react-native";
-import type {
-  TransitionOptions,
-  TransitionStatus,
-} from "react-transition-state";
+import type { TransitionOptions, TransitionStatus } from "react-transition-state";
 import type { TransitionEasing, TransitionHandlerProps } from "./types";
 
 export interface UseTransitionProps<T>
@@ -10,9 +7,7 @@ export interface UseTransitionProps<T>
     TransitionHandlerProps<T> {
   appear?: boolean;
   disableNativeDriver?: boolean;
-  easing?:
-    | TransitionEasing
-    | { enter: TransitionEasing; exit: TransitionEasing };
+  easing?: TransitionEasing | { enter: TransitionEasing; exit: TransitionEasing };
   in?: boolean;
   nodeRef: React.RefObject<T>;
 }

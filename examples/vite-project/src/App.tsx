@@ -19,21 +19,16 @@ function App() {
       </div>
       <h1>Vite + React</h1>
       <div className="card">
-        <button
-          type="button"
-          onClick={() => setCount((prevCount) => prevCount + 1)}
-        >
+        <button type="button" onClick={() => setCount((prevCount) => prevCount + 1)}>
           count is {count}
         </button>
-        <Fade appear in={count > 1}>
+        <Fade appear in>
           <p>
             Edit <code>src/App.tsx</code> and save to test HMR
           </p>
         </Fade>
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <p className="read-the-docs">Click on the Vite and React logos to learn more</p>
     </>
   );
 }

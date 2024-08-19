@@ -12,10 +12,7 @@ export function isFunction(value: any): value is Function {
   return typeof value === "function";
 }
 
-export function runIfFn<T, U>(
-  valueOrFn: T | ((...args: U[]) => T),
-  ...args: U[]
-): T {
+export function runIfFn<T, U>(valueOrFn: T | ((...args: U[]) => T), ...args: U[]): T {
   return isFunction(valueOrFn) ? valueOrFn(...args) : valueOrFn;
 }
 
@@ -37,13 +34,8 @@ export function debounce<T extends (...args: any[]) => any>(fn: T, wait = 166) {
   return debounced as T & { clear: () => void };
 }
 
-export function objectFlat(
-  value: Record<string, any>[] = []
-): Record<string, any> {
-  return Object.assign(
-    {},
-    ...value.flat(Number.POSITIVE_INFINITY).filter(Boolean)
-  );
+export function objectFlat(value: (Record<string, any> | undefined)[] = []): Record<string, any> {
+  return Object.assign({}, ...value.flat(Number.POSITIVE_INFINITY).filter(Boolean));
 }
 
 export function getOwnerWindow(node?: HTMLElement | null) {
@@ -56,9 +48,7 @@ export function getTransitionProps(
     style = {},
     timeout,
   }: {
-    easing?:
-      | TransitionEasing
-      | { enter?: TransitionEasing; exit?: TransitionEasing };
+    easing?: TransitionEasing | { enter?: TransitionEasing; exit?: TransitionEasing };
     style?: TransitionStyle;
     timeout: number | { enter?: number; exit?: number };
   },
@@ -69,11 +59,8 @@ export function getTransitionProps(
   return {
     delay: style.transitionDelay,
     duration:
-      style.transitionDuration ??
-      (isNumber(timeout) ? timeout : timeout[options.mode] ?? 0),
-    easing:
-      style.transitionTimingFunction ??
-      (isString(easing) ? easing : easing?.[options.mode]),
+      style.transitionDuration ?? (isNumber(timeout) ? timeout : timeout[options.mode] ?? 0),
+    easing: style.transitionTimingFunction ?? (isString(easing) ? easing : easing?.[options.mode]),
   };
 }
 
@@ -85,8 +72,7 @@ export function parseTime(value: string | number) {
   const periods: Record<string, number> = { s: 1000, ms: 1 };
   if (isString(value)) {
     return [...value.toLowerCase().matchAll(/(-*\d*\.*\d*)\W*(s|ms)/g)].reduce(
-      (acc, [, digits, type]) =>
-        periods[type] * Number.parseFloat(digits) + acc,
+      (acc, [, digits, type]) => periods[type] * Number.parseFloat(digits) + acc,
       0
     );
   }
@@ -116,9 +102,9 @@ export function createTransitions(
 ) {
   return (Array.isArray(props) ? props : [props])
     .map((prop) =>
-      `${prop} ${
-        isString(duration) ? duration : formatTime(duration)
-      } ${easing} ${isString(delay) ? delay : formatTime(delay)}`.trim()
+      `${prop} ${isString(duration) ? duration : formatTime(duration)} ${easing} ${
+        isString(delay) ? delay : formatTime(delay)
+      }`.trim()
     )
     .join(",");
 }

@@ -1,11 +1,14 @@
 import { useEffect, useRef } from "react";
+import type { EasingFunction } from "react-native";
 import type { TransitionState } from "react-transition-state";
 import { useTransition as useTransitionState } from "react-transition-state";
-import type {
-  UseTransitionProps,
-  UseTransitionReturn,
-} from "./useTransition.types";
+import type { TransitionEasing } from "./types";
+import type { UseTransitionProps, UseTransitionReturn } from "./useTransition.types";
 import { isString } from "./utils";
+
+export function getEasing(easing: TransitionEasing | undefined): EasingFunction {
+  return easing as any;
+}
 
 export function useTransition<T>({
   appear,
@@ -54,23 +57,22 @@ export function useTransition<T>({
 
   const initialEntered = inProp ? !appear : false;
 
-  const [{ isMounted: mounted, isResolved: resolved, status: state }, toggle] =
-    useTransitionState({
-      initialEntered,
-      mountOnEnter,
-      onStateChange: handleStateChange,
-      preEnter: true,
-      preExit: true,
-      timeout,
-      unmountOnExit,
-    });
+  const [{ isMounted: mounted, isResolved: resolved, status: state }, toggle] = useTransitionState({
+    initialEntered,
+    mountOnEnter,
+    onStateChange: handleStateChange,
+    preEnter: true,
+    preExit: true,
+    timeout,
+    unmountOnExit,
+  });
 
   const prevIn = useRef<boolean>();
 
   useEffect(() => {
     if (inProp !== prevIn.current) {
       if (inProp) {
-        toggle(true);
+        setTimeout(() => toggle(true), 0);
       } else {
         toggle(false);
       }
@@ -81,7 +83,7 @@ export function useTransition<T>({
 
   return {
     animation: undefined as any,
-    easing: isString(easing) ? easing : inProp ? easing?.exit : easing?.exit,
+    easing: isString(easing) ? easing : inProp ? easing?.enter : easing?.exit,
     mounted,
     resolved,
     state,
