@@ -1,12 +1,12 @@
 import { Children, cloneElement, forwardRef, useRef } from "react";
-import type { ViewStyle as RNViewStyle } from "react-native";
+import type { ViewStyle } from "react-native";
 import type { FadeProps } from "./Fade.types";
 import { FADE_TIMEOUT } from "./constants";
 import { mergeRefs } from "./mergeRefs";
 import { useTransition } from "./useTransition";
 import { createTransitions, getTransitionProps, objectFlat } from "./utils";
 
-const styles: Record<string, RNViewStyle> = {
+const styles: Record<string, ViewStyle> = {
   entering: {
     opacity: 1,
   },
@@ -40,10 +40,7 @@ export const Fade = forwardRef<any, FadeProps>(
     const nodeRef = useRef<HTMLElement>(null);
 
     const handleEnter = (node: HTMLElement) => {
-      const transitionProps = getTransitionProps(
-        { easing, style, timeout },
-        { mode: "enter" }
-      );
+      const transitionProps = getTransitionProps({ easing, style, timeout }, { mode: "enter" });
 
       node.style.transition = createTransitions("opacity", transitionProps);
 
@@ -51,10 +48,7 @@ export const Fade = forwardRef<any, FadeProps>(
     };
 
     const handleExit = (node: HTMLElement) => {
-      const transitionProps = getTransitionProps(
-        { easing, style, timeout },
-        { mode: "exit" }
-      );
+      const transitionProps = getTransitionProps({ easing, style, timeout }, { mode: "exit" });
 
       node.style.transition = createTransitions("opacity", transitionProps);
 

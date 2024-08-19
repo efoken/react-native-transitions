@@ -1,5 +1,5 @@
 import { Children, cloneElement, forwardRef, useRef } from "react";
-import type { ViewStyle as RNViewStyle } from "react-native";
+import type { ViewStyle } from "react-native";
 import type { GrowProps } from "./Grow.types";
 import { mergeRefs } from "./mergeRefs";
 import { useTransition } from "./useTransition";
@@ -15,7 +15,7 @@ function getScale(value: number) {
   return `scale(${value}, ${value ** 2})`;
 }
 
-const styles: Record<string, RNViewStyle> = {
+const styles: Record<string, ViewStyle> = {
   entering: {
     opacity: 1,
     transform: getScale(1),
@@ -63,9 +63,7 @@ export const Grow = forwardRef<any, GrowProps>(
         createTransitions("opacity", { delay, duration }),
         createTransitions("transform", {
           delay,
-          duration: isNumber(duration)
-            ? duration * 0.666
-            : `calc(${duration} * 0.666)`,
+          duration: isNumber(duration) ? duration * 0.666 : `calc(${duration} * 0.666)`,
           ...transitionProps,
         }),
       ].join(",");
@@ -82,14 +80,8 @@ export const Grow = forwardRef<any, GrowProps>(
       node.style.transition = [
         createTransitions("opacity", { delay, duration }),
         createTransitions("transform", {
-          delay:
-            delay ??
-            (isNumber(duration)
-              ? duration * 0.333
-              : `calc(${duration} * 0.333)`),
-          duration: isNumber(duration)
-            ? duration * 0.666
-            : `calc(${duration} * 0.666)`,
+          delay: delay ?? (isNumber(duration) ? duration * 0.333 : `calc(${duration} * 0.333)`),
+          duration: isNumber(duration) ? duration * 0.666 : `calc(${duration} * 0.666)`,
           ...transitionProps,
         }),
       ].join(",");

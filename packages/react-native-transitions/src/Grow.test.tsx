@@ -1,7 +1,7 @@
 import "@testing-library/jest-dom";
 import { act, render } from "@testing-library/react";
 import { forwardRef, useEffect, useRef } from "react";
-import { Text as RNText, View as RNView } from "react-native";
+import { Text, View } from "react-native";
 import { Grow } from "./Grow";
 import { mergeRefs } from "./mergeRefs";
 import { getAutoHeightDuration } from "./utils";
@@ -66,9 +66,7 @@ describe("<Grow />", () => {
       expect(handleExit).toHaveBeenCalledWith(child);
 
       expect(handleExit.mock.calls[0][0].style.opacity).toBe("0");
-      expect(handleExit.mock.calls[0][0].style.transform).toBe(
-        "scale(0.75, 0.5625)"
-      );
+      expect(handleExit.mock.calls[0][0].style.transform).toBe("scale(0.75, 0.5625)");
 
       await act(async () => {
         await new Promise((resolve) => {
@@ -94,7 +92,7 @@ describe("<Grow />", () => {
     it("should work when initially hidden, appear=true", () => {
       const { container } = render(
         <Grow appear in={false}>
-          <RNText>Foo</RNText>
+          <Text>Foo</Text>
         </Grow>
       );
 
@@ -107,7 +105,7 @@ describe("<Grow />", () => {
     it("should work when initially hidden, appear=false", () => {
       const { container } = render(
         <Grow in={false} appear={false}>
-          <RNText>Foo</RNText>
+          <Text>Foo</Text>
         </Grow>
       );
 
@@ -137,7 +135,7 @@ describe("<Grow />", () => {
             }}
             onEnter={handleEnter}
           >
-            <RNView />
+            <View />
           </Grow>
         );
 
@@ -161,7 +159,7 @@ describe("<Grow />", () => {
           });
 
           return (
-            <RNView
+            <View
               ref={mergeRefs([viewRef, ref])}
               style={{
                 height: autoTransitionDuration,
@@ -201,7 +199,7 @@ describe("<Grow />", () => {
 
         render(
           <Grow in timeout="auto" onEntered={handleEntered2}>
-            <RNView />
+            <View />
           </Grow>
         );
 
@@ -221,7 +219,7 @@ describe("<Grow />", () => {
 
         render(
           <Grow in timeout={timeout} onEntered={handleEntered}>
-            <RNView />
+            <View />
           </Grow>
         );
 
@@ -249,7 +247,7 @@ describe("<Grow />", () => {
 
         const GrowTest: React.FC<any> = (props) => (
           <Grow in timeout="auto" onExited={handleExited} {...props}>
-            <RNView />
+            <View />
           </Grow>
         );
 
@@ -273,7 +271,7 @@ describe("<Grow />", () => {
 
         const GrowTest: React.FC<any> = (props) => (
           <Grow in timeout={timeout} onExited={handleExited} {...props}>
-            <RNView />
+            <View />
           </Grow>
         );
 
@@ -298,7 +296,7 @@ describe("<Grow />", () => {
         });
       });
 
-      it("should create proper sharp animation", () => {
+      it("should create proper sharp animation", async () => {
         const handleExit = jest.fn();
 
         const GrowTest: React.FC<any> = (props) => (
@@ -311,11 +309,15 @@ describe("<Grow />", () => {
             onExit={handleExit}
             {...props}
           >
-            <RNView />
+            <View />
           </Grow>
         );
 
         const { rerender } = render(<GrowTest />);
+
+        await new Promise((resolve) => {
+          setTimeout(resolve, 0);
+        });
 
         rerender(<GrowTest in={false} />);
 

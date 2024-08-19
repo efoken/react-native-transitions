@@ -1,6 +1,6 @@
 import "@testing-library/jest-dom";
 import { act, render } from "@testing-library/react";
-import { Text as RNText, View as RNView } from "react-native";
+import { Text, View } from "react-native";
 import { Zoom } from "./Zoom";
 import { ZOOM_TIMEOUT } from "./constants";
 
@@ -26,7 +26,7 @@ describe("<Zoom />", () => {
           onExiting={handleExiting}
           onExited={handleExited}
         >
-          <RNView id="test" />
+          <View id="test" />
         </Zoom>
       );
 
@@ -91,7 +91,7 @@ describe("<Zoom />", () => {
     it("should work when initially hidden, appear=true", () => {
       const { container } = render(
         <Zoom appear in={false}>
-          <RNText>Foo</RNText>
+          <Text>Foo</Text>
         </Zoom>
       );
 
@@ -104,7 +104,7 @@ describe("<Zoom />", () => {
     it("should work when initially hidden, appear=false", () => {
       const { container } = render(
         <Zoom in={false} appear={false}>
-          <RNText>Foo</RNText>
+          <Text>Foo</Text>
         </Zoom>
       );
 
@@ -119,21 +119,19 @@ describe("<Zoom />", () => {
     it("should render the default theme values by default", async () => {
       const { getByTestId } = render(
         <Zoom in appear>
-          <RNText testID="child">Foo</RNText>
+          <Text testID="child">Foo</Text>
         </Zoom>
       );
 
       const child = getByTestId("child");
 
-      expect(child.style.transition).toMatch(
-        new RegExp(` ${ZOOM_TIMEOUT.enter}ms`)
-      );
+      expect(child.style.transition).toMatch(new RegExp(` ${ZOOM_TIMEOUT.enter}ms`));
     });
 
     it("should render the values provided via prop", () => {
       const { getByTestId } = render(
         <Zoom appear in timeout={{ enter: 1, exit: 1 }}>
-          <RNText testID="child">Foo</RNText>
+          <Text testID="child">Foo</Text>
         </Zoom>
       );
 
