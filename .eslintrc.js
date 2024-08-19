@@ -11,6 +11,7 @@ module.exports = {
     "react/jsx-props-no-spreading": "off",
     "react/prop-types": "off",
     "react/react-in-jsx-scope": "off",
+    "react/static-property-placement": "off",
     "react/style-prop-object": "off",
     "unicorn/filename-case": "off",
     "unicorn/no-array-reduce": "off",
@@ -31,6 +32,8 @@ module.exports = {
         project: "./tsconfig.json",
       },
       rules: {
+        "@typescript-eslint/lines-between-class-members": "off",
+        "@typescript-eslint/no-throw-literal": "off",
         "import/no-extraneous-dependencies": "off",
       },
     },

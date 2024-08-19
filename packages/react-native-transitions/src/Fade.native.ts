@@ -1,5 +1,5 @@
 import { Children, cloneElement, forwardRef, useRef } from "react";
-import { NativeMethods } from "react-native";
+import type { NativeMethods } from "react-native";
 import type { FadeProps } from "./Fade.types";
 import { FADE_TIMEOUT } from "./constants";
 import { mergeRefs } from "./mergeRefs";

@@ -1,8 +1,4 @@
-import type {
-  NativeMethods,
-  ViewProps as RNViewProps,
-  ViewStyle as RNViewStyle,
-} from "react-native";
+import type { NativeMethods, ViewProps, ViewStyle } from "react-native";
 
 export type TransitionEasing =
   | "ease"
@@ -12,7 +8,7 @@ export type TransitionEasing =
   | "linear"
   | (string & {});
 
-export interface TransitionStyle extends RNViewStyle {
+export interface TransitionStyle extends ViewStyle {
   transitionBehavior?: React.CSSProperties["transitionBehavior"];
   transitionDelay?: React.CSSProperties["transitionDelay"];
   transitionDuration?: React.CSSProperties["transitionDuration"];
@@ -31,10 +27,8 @@ export interface TransitionHandlerProps<T> {
 
 export interface TransitionProps
   extends TransitionHandlerProps<HTMLElement | NativeMethods>,
-    Omit<RNViewProps, "children" | "style"> {
-  easing?:
-    | TransitionEasing
-    | { enter: TransitionEasing; exit: TransitionEasing };
+    Omit<ViewProps, "children" | "style"> {
+  easing?: TransitionEasing | { enter: TransitionEasing; exit: TransitionEasing };
   in?: boolean;
   mountOnEnter?: boolean;
   style?: TransitionStyle;

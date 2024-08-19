@@ -8,7 +8,8 @@
     "moduleResolution": "Node10",
     "noEmit": true,
     "skipLibCheck": true,
-    "strict": true
+    "strict": true,
+    "target": "ES2022"
   },
   "include": ["examples", "packages"]
 }
