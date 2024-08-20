@@ -38,7 +38,9 @@ export function useTransition<T>({
         break;
       }
       case "entering": {
-        onEntering?.(nodeRef.current!);
+        if (nodeRef.current) {
+          onEntering?.(nodeRef.current);
+        }
         break;
       }
       case "preExit": {
@@ -52,7 +54,9 @@ export function useTransition<T>({
         break;
       }
       case "exiting": {
-        onExiting?.(nodeRef.current!);
+        if (nodeRef.current) {
+          onExiting?.(nodeRef.current!);
+        }
         break;
       }
       default:
