@@ -26,7 +26,7 @@ describe("<Fade />", () => {
           onExiting={handleExiting}
           onExited={handleExited}
         >
-          <RNView id="test" />
+          <View id="test" />
         </Fade>
       );
 

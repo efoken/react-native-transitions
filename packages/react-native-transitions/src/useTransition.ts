@@ -28,7 +28,9 @@ export function useTransition<T>({
   const handleStateChange = (event: { current: TransitionState }) => {
     switch (event.current.status) {
       case "preEnter": {
-        onEnter?.(nodeRef.current!);
+        if (nodeRef.current) {
+          onEnter?.(nodeRef.current);
+        }
         break;
       }
       case "entered": {
@@ -40,7 +42,9 @@ export function useTransition<T>({
         break;
       }
       case "preExit": {
-        onExit?.(nodeRef.current!);
+        if (nodeRef.current) {
+          onExit?.(nodeRef.current);
+        }
         break;
       }
       case "exited": {
