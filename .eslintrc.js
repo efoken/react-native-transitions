@@ -2,6 +2,7 @@
 module.exports = {
   extends: ["airbnb", "airbnb/hooks", "plugin:unicorn/recommended", "prettier"],
   rules: {
+    "import/extensions": "off",
     "import/no-extraneous-dependencies": "off",
     "import/prefer-default-export": "off",
     "no-nested-ternary": "off",
@@ -34,6 +35,7 @@ module.exports = {
       rules: {
         "@typescript-eslint/lines-between-class-members": "off",
         "@typescript-eslint/no-throw-literal": "off",
+        "import/extensions": "off",
         "import/no-extraneous-dependencies": "off",
       },
     },

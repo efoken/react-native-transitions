@@ -41,7 +41,7 @@ export const Grow = forwardRef<any, GrowProps>(
       onExit,
       onExited,
       onExiting,
-      timeout,
+      timeout: timeout === "auto" ? 0 : timeout,
       unmountOnExit,
     });
 
