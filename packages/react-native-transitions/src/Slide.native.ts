@@ -14,11 +14,12 @@ function getTranslateValue(
   containerWindow: ScaledSize
 ) {
   if (direction === "left") {
+    const x = containerWindow.width + node.offset.x - node.layout.x;
     return [
       {
         translateX: animation.interpolate({
           inputRange: [0, 1],
-          outputRange: [containerWindow.width + node.offset.x - node.layout.x, 0],
+          outputRange: [x >= 1 ? x : containerWindow.width, 0],
         }),
       },
     ];
@@ -30,17 +31,19 @@ function getTranslateValue(
         translateX: animation.interpolate({
           inputRange: [0, 1],
           outputRange: [-(node.layout.x + node.layout.width - node.offset.x), 0],
+          extrapolate: "extend",
         }),
       },
     ];
   }
 
   if (direction === "up") {
+    const y = containerWindow.height + node.offset.y - node.layout.y;
     return [
       {
         translateY: animation.interpolate({
           inputRange: [0, 1],
-          outputRange: [containerWindow.height + node.offset.y - node.layout.y, 0],
+          outputRange: [y >= 1 ? y : containerWindow.height, 0],
         }),
       },
     ];
