@@ -26,7 +26,7 @@ export interface TransitionHandlerProps<T> {
 }
 
 export interface TransitionProps
-  extends TransitionHandlerProps<HTMLElement | NativeMethods>,
+  extends TransitionHandlerProps<HTMLElement | Omit<NativeMethods, "refs">>,
     Omit<ViewProps, "children" | "style"> {
   easing?: TransitionEasing | { enter: TransitionEasing; exit: TransitionEasing };
   in?: boolean;

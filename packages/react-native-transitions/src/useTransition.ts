@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import type { EasingFunction } from "react-native";
 import type { TransitionState } from "react-transition-state";
-import { useTransition as useTransitionState } from "react-transition-state";
+import { useTransitionState } from "react-transition-state";
 import type { TransitionEasing } from "./types";
 import type { UseTransitionProps, UseTransitionReturn } from "./useTransition.types";
 import { isString } from "./utils";

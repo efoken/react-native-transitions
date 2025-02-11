@@ -39,7 +39,7 @@ export function objectFlat(value: (Record<string, any> | undefined)[] = []): Rec
 }
 
 export function getOwnerWindow(node?: HTMLElement | null) {
-  return (node?.ownerDocument ?? document).defaultView ?? window;
+  return (node?.ownerDocument ?? document).defaultView ?? globalThis;
 }
 
 export function getTransitionProps(
